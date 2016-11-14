@@ -25,7 +25,7 @@ module Safely
 
   DEFAULT_EXCEPTION_METHOD = proc do |e|
     e = e.dup # leave original exception unmodified
-    e.message.prepend("[safely] ") if e.message && Safely.tag
+    e.message.prepend("[safely] ") if e.message && !e.message.frozen? && Safely.tag
     Errbase.report(e)
   end
 
